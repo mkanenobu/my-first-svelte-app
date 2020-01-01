@@ -2,8 +2,10 @@
   "license": "MIT",
   "dependencies": {
     "dayjs": "^1.8.18",
+    "lodash": "^4.17.15",
     "svelte": "^3.16.7",
     "svelte-loader": "^2.13.6",
+    "svelte-select": "^3.3.0",
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.10.1"

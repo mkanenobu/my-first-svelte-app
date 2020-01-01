@@ -1,45 +1,40 @@
 <script>
+import _ from 'lodash'
 import dayjs from 'dayjs'
-import { onMount } from 'svelte'
+import Select from 'svelte-select'
+import { afterUpdate } from 'svelte'
 
-let time = dayjs()
-$: nextYear = time.add(1, 'years').format('YYYY')
-$: nextYearStart = dayjs(`${nextYear}-01-01 00:00`).unix()
-$: current = time.unix()
+import Remain from './Remain.svelte'
 
-// set timer on mount
-onMount(() => {
-  const interval = setInterval(() => {
-    time = dayjs()
-  }, 1000)
+const currentYear = dayjs().year()
+const years = [...Array(5).keys()].map(i => i + (currentYear + 1))
 
-  return () => {
-    clearInterval(interval);
-  }
-})
+let selectedYear = currentYear + 1
+const handleSelected = (selected) => {
+  selectedYear = selected.detail.value
+}
 </script>
 
 <style>
+  h1 { margin-bottom: 16px; }
+  p { margin-bottom: 8px; }
   .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: auto;
-    height: 100vh;
+    margin: 16px;
   }
-  .inner {
-    text-align: center;
-    width: 180px;
-    border: 1px solid;
-    border-radius: 16px;
-  }
-  p { font-size: 24px; }
 </style>
 
 <div class="container">
-  <span class="inner">
-    <p>{nextYear}年まで</p>
-    <p>あと{nextYearStart - current}秒</p>
-  </span>
+  <h1>Display remain seconds to selected year.</h1>
+
+  <p>Select year:</p>
+  <!-- bind で selectedYear にバインドしても，
+    Remainが再レンダリングされないのでハンドラをかます -->
+  <Select
+    items={years}
+    placeholder={currentYear + 1}
+    on:select={handleSelected}
+  />
+
+  <!--  not response reactive when props changed  -->
+  <Remain {selectedYear}></Remain>
 </div>
