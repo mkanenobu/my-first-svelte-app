@@ -16,25 +16,50 @@ const handleSelected = (selected) => {
 </script>
 
 <style>
-  h1 { margin-bottom: 16px; }
-  p { margin-bottom: 8px; }
+  .outer {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
   .container {
-    margin: 16px;
+    padding-bottom: 24%;
+  }
+  .select-box {
+    width: 320px;
+  }
+  .remain {
+    margin-top: 16px;
+  }
+  h1 {
+    font-size: 1.2em;
+    margin-bottom: 16px;
+  }
+  p {
+    margin-bottom: 8px;
   }
 </style>
 
-<div class="container">
-  <h1>Display remain seconds to selected year.</h1>
+<div class="outer">
+  <div class="container">
+    <h1>Display remain seconds to selected year.</h1>
 
-  <p>Select year:</p>
-  <!-- bind で selectedYear にバインドしても，
-    Remainが再レンダリングされないのでハンドラをかます -->
-  <Select
-    items={years}
-    placeholder={currentYear + 1}
-    on:select={handleSelected}
-  />
+    <p>Select year:</p>
+    <div class="select-box">
+      <!-- bind で selectedYear にバインドしても
+        Remainが再レンダリングされないのでハンドラをかます -->
+      <Select
+        items={years}
+        placeholder={currentYear + 1}
+        on:select={handleSelected}
+      />
+    </div>
 
-  <!--  not response reactive when props changed  -->
-  <Remain {selectedYear}></Remain>
+    <div class="remain">
+      <Remain {selectedYear}></Remain>
+    </div>
+  </div>
 </div>

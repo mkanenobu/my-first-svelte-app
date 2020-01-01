@@ -22,18 +22,8 @@ onMount(() => {
 </script>
 
 <style>
-  .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: auto;
-    height: 100vh;
-  }
   p { font-size: 24px; }
 </style>
 
-<div class="container">
-  <p>Remain {remainSeconds} seconds to {selectedYear}</p>
-</div>
+<p>Remain {remainSeconds} seconds to {selectedYear}</p>
 
